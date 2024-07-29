@@ -1,0 +1,44 @@
+<%- include("./partials/header")%>
+<%- include("./partials/nav")%>
+<div class="w-[80%] h-[80vh] mx-auto flex flex-col items-center p-10">
+  <div class="userdets flex gap-5 items-center justify-center">
+    <div class="profileimg h-[150px] w-[150px] bg-red-500 rounded-full overflow-hidden">
+      <img class="w-full h-full obeject-cover" src="<%=user.profile%>" alt="">
+    </div>
+    <div class="usertets">
+      <h1 class="text-2xl font-semibold text-zinc-800"><%=user.fullname%></h1>
+      <h1><%=user.email%></h1>
+    </div>
+  </div>
+
+  <form action="/users/uploadimg/<%=user._id%>" method="post" enctype="multipart/form-data">
+    <input type="file" placeholder="enter your file" name="avatar">
+    <button>Submit</button>
+  </form>
+  
+  <div class="allblogs">
+    <h1 class="text-2xl font-semibold">All Blogs</h1>
+    <div class="allboag flex gap-3 flex-wrap my-10 justify-center">
+      <% user.blogs.forEach((elm) => { %>
+        <a href="/blogdescription/<%=elm._id%>">
+      <div class="singleblog w-[300px] h-[300px] bg-zinc-100 p-2 rounded">
+        <div class="img w-full h-[85%]">
+          <img class="w-full h-full obeject-cover" src="<%= elm.blogImage %>" alt="">
+        </div>
+        <div class="description flex justify-between items-center mt-2">
+          <h1 class="text-xl pt-1 capitalize "><%=elm.title.toString().slice(0,10)%></h1>
+          <div class="div">
+              <a class="bg-green-500 text-white px-4 py-1" href="/update/<%=elm._id%>">Update Blog</a>
+              <a href="/delete/<%=elm._id%>"><i class="ri-delete-bin-6-line"></i></a>
+          </div>
+        </div>
+      </div>
+      <% }) %>
+    </div>
+  </div>
+  
+  <a href="/users/logout">logout</a>
+</div>
+</a>
+
+<%- include("./partials/footer")%>
